@@ -64,24 +64,33 @@ describe('jokes model functions', () => {
 
 describe('jokes router functions', () => {
   describe('[GET] /api/jokes', () => {
-    it('', async () => {
-      expect(true).toBe(false)
+    it('should return a 200 OK status', async () => {
+      const res = await request(server).get('/api/jokes')
+      expect(res.status).toBe(200)
     })
-    it('', async () => {
-      expect(true).toBe(false)
+    it('should return a list of jokes', async () => {
+      const res = await request(server).get('/api/jokes')
+      expect(res.body).toHaveLength(3)
     })
   })
   describe('[GET] /api/jokes/:joke_id', () => {
-    it('', async () => {
-      expect(true).toBe(false)
+    it('should return a single joke', async () => {
+      const res = await request(server).get('/api/jokes/1')
+      expect(res.body).toMatchObject({
+        joke_id: 1,
+        joke: 'What did the fish say when he swam into a wall?',
+        punchline: 'Dam.'
+      })
     })
   })
   describe('[POST] /api/jokes', () => {
-    it('', async () => {
-      expect(true).toBe(false)
+    it('should return a 201 OK status', async () => {
+      const res = await request(server).post('/api/jokes').send(joke1)
+      expect(res.status).toBe(201)
     })
-    it('', async () => {
-      expect(true).toBe(false)
+    it('should return the newly created joke', async () => {
+      const res = await request(server).post('/api/jokes').send(joke1)
+      expect(res.body).toMatchObject(joke1)
     })
   })
 })
